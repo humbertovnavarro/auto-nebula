@@ -1,0 +1,1 @@
+Run newclient.bash to generate a tar archive to use on a server.
