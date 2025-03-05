@@ -1,0 +1,56 @@
+pki:
+  ca: /etc/nebula/ca.crt
+  cert: /etc/nebula/client.crt
+  key: /etc/nebula/client.key
+  disconnect_invalid: true
+static_host_map:
+  "10.10.0.1": ["68.127.190.132:4242"]
+  "10.10.0.5": ["149.28.86.222:4242"]
+lighthouse:
+  interval: 60
+  hosts:
+    - "10.10.0.1"
+    - "10.10.0.5"
+listen:
+  host: 0.0.0.0
+  port: 4242
+punchy:
+  punch: true
+relay:
+  relays:
+    - 10.10.0.1
+    - 10.10.0.5
+  am_relay: false
+  use_relays: true
+tun:
+  disabled: false
+  dev: crownet1
+  drop_local_broadcast: false
+  drop_multicast: false
+  tx_queue: 500
+  mtu: 1300
+  routes:
+  unsafe_routes:
+    - route: 10.11.0.1/24
+      via: 10.10.0.1
+      mtu: 1300
+      metric: 100
+      install: true
+logging:
+  level: info
+  format: text
+firewall:
+  outbound_action: drop
+  inbound_action: drop
+  conntrack:
+    tcp_timeout: 12m
+    udp_timeout: 3m
+    default_timeout: 10m
+  outbound:
+    - port: any
+      proto: any
+      host: any
+  inbound:
+    - port: any
+      proto: icmp
+      host: any
