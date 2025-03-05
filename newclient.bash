@@ -50,10 +50,15 @@ if [[ $? -eq 0 ]]; then
         echo "Warning: ca.crt not found! It will not be included in the zip."
     fi
 
-    # Create a zip archive
-    ZIP_FILE="${CLIENT_NAME}.zip"
-    zip -j $ZIP_FILE $OUT_CRT $OUT_KEY client.yml ca.crt 2>/dev/null
-    echo "Created archive: $ZIP_FILE"
+    # Create a tar.gz archive
+    TAR_FILE="${CLIENT_NAME}.tar.gz"
+    tar -czf $TAR_FILE -C "$(dirname "$OUT_CRT")" "$(basename "$OUT_CRT")" \
+                        -C "$(dirname "$OUT_KEY")" "$(basename "$OUT_KEY")" \
+                        -C "$(dirname "client.yml")" "$(basename "client.yml")" \
+                        -C "$(dirname "ca.crt")" "$(basename "ca.crt")" \
+                        -C "$(dirname "install.bash")" "$(basename "install.bash")"
+
+    echo "Created archive: $TAR_FILE"
 else
     echo "Error signing the certificate. Please check the parameters and try again."
 fi
