@@ -4,8 +4,6 @@ pki:
   key: /etc/nebula/client.key
   disconnect_invalid: true
 static_host_map:
-  "10.10.0.1": ["68.127.190.132:4242"]
-  "10.10.0.5": ["149.28.86.222:4242"]
 lighthouse:
   interval: 60
   hosts:
